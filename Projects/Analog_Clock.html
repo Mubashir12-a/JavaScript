@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog-Clock</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        height: 100vh;
+        width: 100vw;
+        background: #222222;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .outer_1 {
+        height: 50vh;
+        width: 50vh;
+        border: 3px solid transparent;
+        box-shadow: 5px 5px 10px #111111,
+                    inset 5px 5px 10px #000000;
+        margin-top: 5vh;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3vh;
+    }
+
+    .outer_1 div:nth-child(2){
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .outer_1 div span {
+        color: white;
+        font-size: 5vh;
+    }
+
+    #center {
+        position: relative;
+        /*background-color: green;*/
+        width: 5vh;
+        height: 5vh;
+    }
+
+    #center::after {
+        content: "";
+        position: absolute;
+        top: 25%;
+        left: 25%;
+        background-color: white;
+        height: 50%;
+        width: 50%;
+        border-radius: 50%;
+    }
+
+    #hrs, #min, #sec {
+        position: absolute;
+        top: 2vh;
+        left: 2.4vh;
+        border-radius: 20px 50px 50px 20px;
+        transform-origin: left;
+        transform: rotate(-90deg);
+    }
+
+    #hrs {
+        height: 1vh;
+        width: 13vh;
+        background-color: red;
+    }
+
+    #min {
+        height: 0.6vh;
+        width: 18vh;
+        background-color: ghostwhite;
+        border: 1px solid green;
+    }
+
+    #sec {
+        height: 0.6vh;
+        width: 20vh;
+        background-color: blue;
+        border: 1px solid red;
+    }
+
+    #startButton {
+        display: block;
+        height: 5vh;
+        width: 20vh;
+        border-radius: 20px;
+        font-size: 2.5vh;
+        font-weight: bold;
+        background-color: grey;
+        border: none;
+    }
+
+    #startButton:hover {
+        background-color: #111111;
+        color: white;
+    }
+
+</style>
+<body>
+    <div class="outer_1">
+        <div id="top">
+            <span>12</span>
+        </div>
+        <div>
+            <span>9</span>
+            <span id="center">
+                <div id="hrs"></div>
+                <div id="min"></div>
+                <div id="sec"></div>
+                <audio id="Sound" src="clock_tik_tik.mp3"></audio>
+            </span>
+            <span>3</span>
+        </div>
+        <div id="bottom">
+            <span>6</span>
+        </div>
+    </div>
+
+    <button id="startButton">Start Clock</button>
+</body>
+<script>
+
+    function upDate(){
+        let hourPin = document.getElementById("hrs");
+        let minPin = document.getElementById("min");
+        let secPin = document.getElementById("sec");
+        
+        const time = new Date();
+        
+        let h = time.getHours();
+        let m = time.getMinutes();
+        let s = time.getSeconds();
+        
+        if(h == 24){
+            h = 12;
+        }
+        else if(h > 12){
+            h = h % 12;
+        }
+        
+        h = h * 30 - 90;  // h is hour; 30 means rotate 30deg after an hour; 90 is alraedy rotate position in style i.e = -90deg;
+        m = m * 6 - 90;
+        s = s * 6 - 90;
+        
+        hourPin.style.transform = `rotate(${h}deg)`;
+        minPin.style.transform = `rotate(${m}deg)`;
+        secPin.style.transform = `rotate(${s}deg)`;
+        
+    }
+
+    function SoundEff(){
+        clkSnd.currentTime = 0;
+        clkSnd.play();
+    }
+
+    
+
+
+    const clkSnd = document.getElementById("Sound");
+    const startButton = document.getElementById("startButton");
+
+        
+        function SoundEff() {
+            clkSnd.currentTime = 0; 
+            clkSnd.play(); 
+        }
+
+
+        startButton.addEventListener('click', function() {
+            
+            setInterval(upDate, 1000);
+            setInterval(SoundEff, 1000);
+             
+            startButton.style.display = "none";
+        });
+</script>
+</html>
