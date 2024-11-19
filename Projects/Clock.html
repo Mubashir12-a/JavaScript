@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+</head>
+<style>
+    * {
+
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #111111;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .container {
+        background-color: #333333;
+        height: 20vh;
+        width: 80vh;
+        margin-top: 10vh;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        font-size: 10vh;
+    }
+
+    span:nth-child(even){
+        font-size: 1.5em;
+        margin-bottom: 15px;
+        color: white;
+        text-shadow: 0 0 10px red, 0 0 15px maroon;
+        -webkit-text-stroke: 1px red;
+    }
+
+    span:nth-child(odd){
+        color: white;
+        -webkit-text-stroke: 1px green;
+        text-shadow: 0 0 5px greenyellow, 0 0 10px green;
+    }
+</style>
+<body>
+    <div class="container">
+        <span class="show"></span>
+        <span>:</span>
+        <span class="show"></span>
+        <span>:</span>
+        <span class="show"></span>
+    </div>
+</body>
+<script>
+    //console.log("Credit: Mubashir Ahmad");
+
+    let ShowTime = document.getElementsByClassName("show");
+
+    
+    function fn(){
+        const clock = new Date();
+        let H = clock.getHours().toString().padStart(2, '0');
+        let M = clock.getMinutes().toString().padStart(2, '0');
+        let S = clock.getSeconds().toString().padStart(2, '0');
+        
+        if(H > 12){
+            H = H % 12;
+        }
+
+        ShowTime[0].innerHTML = H;
+        ShowTime[1].innerHTML = M;
+        ShowTime[2].innerHTML = S;
+        
+    }
+
+    setInterval(fn, 1000);
+    fn();
+</script>
+</html>
