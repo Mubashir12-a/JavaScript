@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #111111;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    div {
+        width: 80vw;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    button {
+        all: unset;
+        color: white;
+        letter-spacing: 3px;
+        font-size: 2.5vw;
+        background-color: transparent;
+        width: 15vw;
+        height: 5vw;
+        border-radius: 2vw;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        border: 2px solid red;
+    }
+
+    #cursor {
+        position: absolute;
+        height: 3vh;
+        width: 3vw;
+        background-color: cyan;
+        border-radius: 50%;
+        box-shadow: 0 0 30px 20px cyan,
+                    0 0 60px 30px blue,
+                    0 0 90px 40px cyan,
+                    0 0 120px 50px blue,
+                    0 0 150px 60px cyan;
+        opacity: 0;
+        z-index: 4;
+    }
+
+    .btns {
+        height: 5.8vw;
+        width: 15.8vw;
+        background-color: white;
+        border-radius: 2.4vw;
+        display: flex;
+        align-items: center;
+    }
+
+    section {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.04);
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .btns button {
+        z-index: 5;
+        background-color: transparent;
+        border-color: white;
+    }
+
+    .btns button span {
+        background-clip: text;
+        color: transparent;
+        -webkit-text-stroke: 1px white;
+    }
+</style>
+<body>
+    <section>
+        <div>
+            <div class="btns temp">
+                <button><span>BUTTON</span></button>
+            </div>
+            <div class="btns temp">
+                <button><span>BUTTON</span></button>
+            </div>
+            <div class="btns temp">
+                <button><span>BUTTON</span></button>
+            </div>
+        </div>
+    </section>
+    <div>
+        <div class="btns">
+            <!-- <button>BUTTON</button> -->
+        </div>
+        <div class="btns">
+            <!-- <button>BUTTON</button> -->
+        </div>
+        <div class="btns">
+            <!-- <button>BUTTON</button> -->
+        </div>
+    </div>
+
+    <div id="cursor">
+
+    </div>
+</body>
+<script>
+    const circle = document.getElementById("cursor");
+
+        document.addEventListener("mousemove", (event) => {
+            const { clientX, clientY } = event; // Get cursor's position
+            circle.style.left = `${clientX - circle.offsetWidth / 2}px`; // Center horizontally
+            circle.style.top = `${clientY - circle.offsetHeight / 2}px`; // Center vertically
+        });
+
+        document.addEventListener("mouseleave", function(){
+            circle.style.opacity = "0";
+        })
+
+        document.addEventListener("mouseenter", function(){
+            circle.style.opacity = "1";
+        })
+</script>
+</html>

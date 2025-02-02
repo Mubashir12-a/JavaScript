@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elevator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="tunel">
+      <div class="El_Struct">
+        <div class="door">
+          <div class="showFloor">06</div>
+        </div>
+        <div class="door"></div>
+        <img src="ElevatorImg.png" alt="" />
+      </div>
+    </div>
+
+    <div id="controller">
+      <div class="display">
+        <h3 class="displayInner">06</h3>
+      </div>
+      <div class="defaultKey">
+        <button class="OpenClose">O/C</button>
+      </div>
+      <div class="floorNums">
+        <button class="flr_1">1</button>
+        <button class="flr_1">2</button>
+        <button class="flr_1">3</button>
+        <button class="flr_1">4</button>
+        <button class="flr_1">5</button>
+        <button class="flr_1">6</button>
+
+        <button class="emergency red">EMR</button>
+        <button class="alarm green">ALM</button>
+      </div>
+    </div>
+
+    <section class="floor_6 floor" id="F6">
+      <div>6th Floor</div>
+    </section>
+    <section class="floor_5 floor" id="F5">
+      <div>5th Floor</div>
+    </section>
+    <section class="floor_4 floor" id="F4">
+      <div>4th Floor</div>
+    </section>
+    <section class="floor_3 floor" id="F3">
+      <div>3rd Floor</div>
+    </section>
+    <section class="floor_2 floor" id="F2">
+      <div>2nd Floor</div>
+    </section>
+    <section class="floor_1 floor" id="F1">
+      <div>1st Floor</div>
+    </section>
+  </body>
+
+
+
+
+  <script>
+    const DoorLeft = document.getElementsByClassName("door")[0];
+    const DoorRight = document.getElementsByClassName("door")[1];
+    const Elevator = document.getElementsByClassName("El_Struct")[0];
+    const OpenClose = document.getElementsByClassName("OpenClose")[0];
+    let btns = document.getElementsByClassName("flr_1")
+    let display = document.getElementsByClassName("displayInner")[0];
+    const doorNum = document.getElementsByClassName("showFloor")[0];
+
+    function FnOpenClose() {
+      // Check current transform values and toggle accordingly
+      let doorLeftTransform = window.getComputedStyle(DoorLeft).transform;
+      //console.log(doorLeftTransform);
+      if (doorLeftTransform === "matrix(1, 0, 0, 1, 0, 0)") {
+        // Equivalent to translateX(0%)
+        DoorLeft.style.transform = "translateX(-100%)";
+        DoorRight.style.transform = "translateX(100%)";
+      } else {
+        DoorLeft.style.transform = "translateX(0%)";
+        DoorRight.style.transform = "translateX(0%)";
+      }
+    }
+
+    function shaft(n) {
+      Elevator.style.transform = `translateY(${5 - n}00%)`;
+      display.innerHTML = `0${n + 1}`;
+      doorNum.innerHTML = `0${n + 1}`;
+      setTimeout(FnOpenClose, 1000);
+    }
+
+    
+    function checkDoorOpen(n) {
+      let doorLeftTransform = window.getComputedStyle(DoorLeft).transform;
+      if (doorLeftTransform === "matrix(1, 0, 0, 1, 0, 0)") {
+        shaft(n);
+      } else {
+        DoorLeft.style.transform = "translateX(0%)";
+        DoorRight.style.transform = "translateX(0%)";
+        setTimeout(shaft, 1000, n);
+      }
+    }
+
+    OpenClose.addEventListener("click", function () {
+      FnOpenClose();
+    });
+
+
+    function scrollTo(n) {
+      document.getElementById(`F${n}`).scrollIntoView({ behavior: "smooth" });
+    }
+
+
+
+
+
+
+    // 1st floor button:
+    btns[0].addEventListener("click", function () {
+      checkDoorOpen(0);
+      scrollTo(1);
+    });
+
+    // 2nd floor button:
+    btns[1].addEventListener("click", function () {
+      checkDoorOpen(1);
+      scrollTo(2);
+    });
+
+    // 3rd floor button:
+    btns[2].addEventListener("click", function () {
+      checkDoorOpen(2);
+      scrollTo(3);
+    });
+
+    // 4th floor button:
+    btns[3].addEventListener("click", function () {
+      checkDoorOpen(3);
+      scrollTo(4);
+    });
+
+    // 5th floor button:
+    btns[4].addEventListener("click", function () {
+      checkDoorOpen(4);
+      scrollTo(5);
+    });
+
+    // 6th floor button:
+    btns[5].addEventListener("click", function () {
+      checkDoorOpen(5);
+      scrollTo(6);
+    });
+  </script>
+</html>

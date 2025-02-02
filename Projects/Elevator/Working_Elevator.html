@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elevator</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #222222;
+      overflow-x: hidden;
+    }
+
+    .container_1 {
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      z-index: 1;
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .El_Struct {
+      height: 60vw;
+      width: 50vw;
+      /*background-color: grey;*/
+      background-position: center;
+      background-size: cover;
+      border: 1vh solid rgb(44, 38, 38);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .El_Struct img {
+        height: 100%;
+        width: 100%;
+    }
+
+    .door {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      border: 3px solid black;
+      background-image: url("doors.png");
+      background-position: center;
+      background-size: cover;
+      transition: all 0.8s;
+    }
+
+    .door:nth-child(1) {
+      /*background-color: rgb(55, 42, 42);*/
+      width: 50%;
+      left: 0;
+      transform: translateX(0%);
+    }
+
+    .door:nth-child(2) {
+      /*background-color: rgb(55, 42, 42);*/
+      width: 50%;
+      right: 0;
+      transform: translateX(0%);
+    }
+
+    .controls {
+      background-color: #222222;
+      border-radius: 20px;
+      height: 25vw;
+      width: 10vw;
+      align-self: center;
+      margin-left: 2vh;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: column;
+      z-index: 20;
+    }
+
+    .controls .display {
+      height: 30%;
+      width: 90%;
+      /*background-color: blue;*/
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .controls .display span {
+      font-size: 4vw;
+      font-weight: bold;
+      color: white;
+      letter-spacing: 3px;
+      text-shadow: 0px 0px 2px red;
+
+    }
+
+    .controls .btns {
+      height: 70%;
+      width: 90%;
+      /*background-color: red;*/
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      flex-direction: column;
+    }
+
+    .controls .btns div {
+      height: 30%;
+      width: 60%;
+      background-color: white;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .controls .btns div:active {
+      transform: scale(0.8);
+      transition: all 0.2s;
+    }
+
+    .controls .btns div:nth-child(1) {
+      background-image: url("up.png");
+    }
+
+    .controls .btns div:nth-child(2) {
+      background-image: url("down.png");
+    }
+
+    .controls .btns div:nth-child(3) {
+      background-image: url("O_C_btns.png");
+    }
+
+    @media (min-width: 700px) {
+      .El_Struct {
+        height: 60vh;
+        width: 50vh;
+      }
+
+      .controls {
+        height: 25vh;
+        width: 10vh;
+      }
+
+      .controls .display span {
+        font-size: 4vh;
+      }
+    }
+    
+  </style>
+  <body>
+    <div class="container_1">
+      <div class="El_Struct">
+        <div class="door"></div>
+        <div class="door"></div>
+        <img src="ElevatorImg.png" alt="">
+      </div>
+
+
+      <div class="controls">
+        <div class="display">
+          <span id="Num">00</span>
+        </div>
+        <div class="btns">
+          <div class="up"></div>
+          <div class="down"></div>
+          <div class="open_close"></div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+  <script>
+    const DoorLeft = document.getElementsByClassName("door")[0];
+    const DoorRight = document.getElementsByClassName("door")[1];
+
+    const Elevator = document.getElementsByClassName("El_Struct")[0];
+
+    const UpBtn = document.getElementsByClassName("up")[0];
+    const DownBtn = document.getElementsByClassName("down")[0];
+    const OpenClose = document.getElementsByClassName("open_close")[0];
+
+    OpenClose.addEventListener("click", function () {
+      // Check current transform values and toggle accordingly
+      const doorLeftTransform = window.getComputedStyle(DoorLeft).transform;
+      //console.log(doorLeftTransform);
+      if (doorLeftTransform === "matrix(1, 0, 0, 1, 0, 0)") {
+        // Equivalent to translateX(0%)
+        DoorLeft.style.transform = "translateX(-100%)";
+        DoorRight.style.transform = "translateX(100%)";
+      } else {
+        DoorLeft.style.transform = "translateX(0%)";
+        DoorRight.style.transform = "translateX(0%)";
+      }
+    });
+
+  </script>
+</html>
